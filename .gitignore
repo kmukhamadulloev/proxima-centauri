@@ -1,0 +1,8 @@
+config/nginx/cert/*
+!config/nginx/cert/pgadmin
+config/nginx/conf.d/*.conf
+!config/nginx/conf.d/pgadmin.conf
+
+volumes/*
+
+.env
