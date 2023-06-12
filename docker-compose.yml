@@ -11,6 +11,7 @@ services:
       - ./config/nginx/conf.d:/etc/nginx/conf.d
       - ./config/nginx/cert:/etc/nginx/ssl
       - /var/www/k3i:/var/www/k3i
+      - /var/www/study:/var/www/study
     depends_on:
       - php81
       - php73
@@ -22,24 +23,33 @@ services:
   php81:
     container_name: k3i-php81
     build: ./config/php81
+    depends_on:
+      - node18
     volumes:
       - /var/www/k3i:/var/www/k3i
+      - /var/www/study:/var/www/study
     networks:
       - app-network
   
   php73:
     container_name: k3i-php73
     build: ./config/php73
+    depends_on:
+      - node18
     volumes:
       - /var/www/k3i:/var/www/k3i
+      - /var/www/study:/var/www/study
     networks:
       - app-network
   
   node18:
     container_name: k3i-node18
     build: ./config/node18
+    ports:
+      - 3030:3030
     volumes:
       - /var/www/k3i:/var/www/k3i
+      - /var/www/study:/var/www/study
     networks:
       - app-network
   
@@ -52,6 +62,14 @@ services:
       - ./volumes/mysql/data:/var/lib/mysql
     networks:
       - app-network
+  
+  # pmadmin:
+  #   container_name: k3i-pmadmin
+  #   image: phpmyadmin/phpmyadmin
+  #   environment:
+  #     - PMA_HOST: mysql
+  #   networks:
+  #     - app-network
 
   postgres:
     container_name: k3i-postgres
