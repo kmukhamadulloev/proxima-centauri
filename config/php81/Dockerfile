@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libicu-dev \
     libonig-dev \
+    libpq-dev \
     libzip-dev
 
 # required php extensions
@@ -26,7 +27,7 @@ RUN docker-php-ext-install \
     opcache \
     calendar \
     mbstring \
-    pdo_mysql \
+    pdo \
     zip
 
 # upload configuration
